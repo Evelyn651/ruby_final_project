@@ -1,3 +1,6 @@
+require './manager'
+require './note'
+
 module Application
 	def self.run
 		menu = Menu.new
@@ -21,11 +24,14 @@ module Application
 
 	class Menu
 		def initialize
-
+			@manager = Manager.new
 		end
 
 		def add
-
+			print "Note: "
+			text = gets.chomp
+			note = Note.new(text)
+			@manager.store(note)
 		end
 	end
 
