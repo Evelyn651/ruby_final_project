@@ -16,6 +16,7 @@ module Application
 
 			case choice
 				when 'a' then menu.add
+				when 'b' then menu.edit
 				when 'd' then menu.show_all
 			end
 
@@ -38,6 +39,24 @@ module Application
 		def show_all
 			@manager.show_all
 		end
-	end
 
-end
+		def edit
+			begin
+				@manager.show_all
+				entries = @manager.get_all
+				if entries.length > 0
+					print "Enter Index Number to Edit: "
+					index = gets.chomp.to_i
+					note = entries.fetch(index-1)
+					print "Note: "
+					text = gets.chomp
+					note.set_text(text)
+					@manager.store(note)
+					puts "Entry Updates".center(50,"*")
+				end
+			rescue Exception => e
+				puts "Invalid Input".center(50, "-")
+			end
+		end
+	end
+	end
