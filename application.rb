@@ -17,6 +17,7 @@ module Application
 			case choice
 				when 'a' then menu.add
 				when 'b' then menu.edit
+				when 'c' then menu.delete
 				when 'd' then menu.show_all
 			end
 
@@ -53,6 +54,22 @@ module Application
 					note.set_text(text)
 					@manager.store(note)
 					puts "Entry Updates".center(50,"*")
+				end
+			rescue Exception => e
+				puts "Invalid Input".center(50, "-")
+			end
+		end
+
+		def delete
+			begin
+				@manager.show_all
+				entries = @manager.get_all
+				if entries.length > 0
+					print "Enter Index Number to Delete: "
+					index = gets.chomp.to_i
+					note = entries.fetch(index-1)
+					@manager.delete(note)
+					puts "Entry Deleted".center(50,"*")
 				end
 			rescue Exception => e
 				puts "Invalid Input".center(50, "-")
